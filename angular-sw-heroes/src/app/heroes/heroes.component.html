@@ -1,15 +1,5 @@
-<ng-container *ngIf="selectedHero">
-  <h2>{{ selectedHero.name }} Details</h2>
-  <div><span>id: </span>{{ selectedHero.id }}</div>
-  <div><span>name: </span>{{ selectedHero.name | uppercase }}</div>
+<sw-hero-detail [hero]="selectedHero"></sw-hero-detail>
 
-  <div>
-    <label>
-      name:
-      <input [(ngModel)]="selectedHero.name" placeholder="name" />
-    </label>
-  </div>
-</ng-container>
 
 <h2>My Heroes</h2>
 <ul class="heroes">
