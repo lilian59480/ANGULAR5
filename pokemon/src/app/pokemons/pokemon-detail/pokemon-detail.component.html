@@ -1,0 +1,51 @@
+<ng-container *ngIf="pokemon">
+  <mat-card class="pokemon-card">
+    <mat-card-content>
+      <mat-grid-list cols="2" rowHeight="200px">
+        <mat-grid-tile>
+          <div class="title-tile">
+            <img
+              src="assets/img/official-artwork/{{ pokemon.id }}.png"
+              alt="Picture of {{ pokemon.name }}"
+            />
+            <h2>No. {{ pokemon.id | number: "3.0" }}</h2>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile>
+          <div>
+            <p>
+              {{ pokemon.name }}
+              <button mat-icon-button (click)="pokemoncry.play()" mat-icon-button>
+                <mat-icon>play_circle_outline</mat-icon>
+              </button>
+              <audio
+                #pokemoncry
+                autoplay
+                src="assets/audio/{{ pokemon.id }}.mp3"
+              ></audio>
+            </p>
+            <mat-chip-list>
+              <mat-chip
+                *ngFor="let type of pokemon.types"
+                color="accent"
+                selected
+              >
+                {{ type }}
+              </mat-chip>
+            </mat-chip-list>
+            <p>Taille: {{ pokemon.height | number: "1.1" }} m</p>
+            <p>Poids: {{ pokemon.weight | number: "1.1" }} kg</p>
+          </div>
+        </mat-grid-tile>
+        <mat-grid-tile [colspan]="2">
+          <p>
+            {{ pokemon.description }}
+          </p>
+        </mat-grid-tile>
+      </mat-grid-list>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" routerLink="" mat-raised-button>Retour</button>
+    </mat-card-actions>
+  </mat-card>
+</ng-container>
