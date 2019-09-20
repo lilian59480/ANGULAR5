@@ -1,5 +1,7 @@
 .pokemon-card {
-  max-width: 40em;
+  // max-width: 40em;
+  width: calc(100% - 32px);
+  height: calc(100% - 32px);
   img {
       max-width: 10em;
       height: 100%;

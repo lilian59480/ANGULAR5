@@ -1,9 +1,34 @@
-<mat-list infiniteScroll (scrolled)="onScroll()">
+<div class="search-center">
+  <mat-form-field appearance="standard">
+    <input
+      matInput
+      #searchPokemon
+      type="search"
+      placeholder="Rechercher par nom"
+      (input)="search(searchPokemon.value)"
+    />
+  </mat-form-field>
+</div>
+
+<mat-divider></mat-divider>
+
+<mat-list
+  class="pokemon-list"
+  infiniteScroll
+  [scrollWindow]="false"
+  (scrolled)="onScroll()"
+>
   <ng-container *ngIf="pokemons">
     <mat-list-item
       *ngFor="let pokemon of pokemons"
-      routerLink="details/{{ pokemon.id }}"
+      (click)="onSelect(pokemon.id)"
+      class="element"
     >
+      <!-- <mat-list-item
+      *ngFor="let pokemon of pokemons"
+      routerLink="details/{{ pokemon.id }}"
+      class="element"
+    > -->
       <img
         matListAvatar
         src="assets/img/sprites/{{ pokemon.id }}.png"
@@ -15,5 +40,4 @@
       </p>
     </mat-list-item>
   </ng-container>
-
 </mat-list>

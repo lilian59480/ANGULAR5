@@ -3,17 +3,23 @@ import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
 import { PaginatedPokemon, Pokemon } from "../models/pokemon.model";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
   providedIn: "root"
 })
 export class PokemonService {
-  baseUrl: string =
-    "http://app-ec21e68e-3e55-42d7-b1ae-3eef7507a353.cleverapps.io";
+  baseUrl: string = environment.apiUrl;
+
+  // baseUrl: string =
+  // "http://app-ec21e68e-3e55-42d7-b1ae-3eef7507a353.cleverapps.io";
 
   constructor(private http: HttpClient) {}
 
-  getPokemons(offset: number = 0, limit: number = 10): Observable<PaginatedPokemon> {
+  getPokemons(
+    offset: number = 0,
+    limit: number = 10
+  ): Observable<PaginatedPokemon> {
     const url = this.baseUrl + "/pokemons";
 
     const params = new HttpParams()
@@ -21,7 +27,7 @@ export class PokemonService {
       .set("limit", limit.toString(10));
 
     return this.http
-      .get<PaginatedPokemon>(url, {params})
+      .get<PaginatedPokemon>(url, { params })
       .pipe(
         tap(() => {
           this._log("Fetched Pokemons");
@@ -29,6 +35,34 @@ export class PokemonService {
       )
       .pipe(
         catchError(this.handleError<PaginatedPokemon>("getPokemons", null))
+      );
+  }
+
+  searchPokemons(
+    search: string,
+    offset: number = 0,
+    limit: number = 10
+  ): Observable<PaginatedPokemon> {
+    if (search.length == 0) {
+      this._warn("Search is empty, call will likely fail");
+    }
+
+    const url = this.baseUrl + "/pokemons";
+
+    const params = new HttpParams()
+      .set("search", search)
+      .set("offset", offset.toString(10))
+      .set("limit", limit.toString(10));
+
+    return this.http
+      .get<PaginatedPokemon>(url, { params })
+      .pipe(
+        tap(() => {
+          this._log("Searched Pokemons");
+        })
+      )
+      .pipe(
+        catchError(this.handleError<PaginatedPokemon>("searchPokemons", null))
       );
   }
 
@@ -47,6 +81,10 @@ export class PokemonService {
 
   private _log(message: string) {
     console.log(`PokemonService : ${message}`);
+  }
+
+  private _warn(message: string) {
+    console.warn(`PokemonService : ${message}`);
   }
 
   private handleError<T>(operation = "operation", result?: T) {
