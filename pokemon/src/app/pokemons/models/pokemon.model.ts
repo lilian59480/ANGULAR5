@@ -1,4 +1,4 @@
-export type PokemonType = string;
+import { PokemonType } from './pokemon-type.model';
 
 export interface Pokemon {
   id: number;
@@ -8,11 +8,3 @@ export interface Pokemon {
   weight?: number;
   types?: PokemonType[];
 }
-
-export interface PaginatedData<T> {
-  data: T[];
-  offset: number;
-  limit: number;
-}
-
-export type PaginatedPokemon = PaginatedData<Pokemon>;

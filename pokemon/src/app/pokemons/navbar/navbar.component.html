@@ -1,0 +1,24 @@
+<mat-toolbar class="nav-center">
+  <span>Pokédex</span>
+
+  <span class="space">
+    <button mat-raised-button color="primary" routerLink="/">
+      Pokédex
+    </button>
+
+    <ng-container *ngIf="!isLogged">
+      <button mat-raised-button color="accent" routerLink="/login">
+        Mon Équipe (Connexion)
+      </button>
+    </ng-container>
+
+    <ng-container *ngIf="isLogged">
+      <button mat-raised-button color="accent" routerLink="/team">
+        Mon Équipe
+      </button>
+      <button mat-raised-button color="warn" routerLink="/logout">
+        Deconnexion
+      </button>
+    </ng-container>
+  </span>
+</mat-toolbar>

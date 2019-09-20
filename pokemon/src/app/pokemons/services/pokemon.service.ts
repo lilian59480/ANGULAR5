@@ -2,17 +2,17 @@ import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Observable, of } from "rxjs";
 import { catchError, tap } from "rxjs/operators";
-import { PaginatedPokemon, Pokemon } from "../models/pokemon.model";
+import { PaginatedPokemon } from "../models/paginated-pokemon.model";
+import { Pokemon } from "../models/pokemon.model";
+import { LoginResponse } from "../models/login-response.model";
 import { environment } from "../../../environments/environment";
+import { RefreshResponse } from "../models/refresh-response.model";
 
 @Injectable({
   providedIn: "root"
 })
 export class PokemonService {
   baseUrl: string = environment.apiUrl;
-
-  // baseUrl: string =
-  // "http://app-ec21e68e-3e55-42d7-b1ae-3eef7507a353.cleverapps.io";
 
   constructor(private http: HttpClient) {}
 
@@ -77,6 +77,66 @@ export class PokemonService {
         })
       )
       .pipe(catchError(this.handleError<Pokemon>("getPokemonById", null)));
+  }
+
+  login(email: string, password: string): Observable<LoginResponse> {
+    const url = this.baseUrl + "/auth/login";
+
+    return this.http
+      .post<LoginResponse>(url, { email, password })
+      .pipe(
+        tap(() => {
+          this._log(`Login with ${email}`);
+        })
+      )
+      .pipe(catchError(this.handleError<LoginResponse>("login", null)));
+  }
+
+  refresh(token: string): Observable<RefreshResponse> {
+    const url = this.baseUrl + "/auth/refresh";
+
+    return this.http
+      .post<RefreshResponse>(url, { token })
+      .pipe(
+        tap(() => {
+          this._log(`Refresh token ${token}`);
+        })
+      )
+      .pipe(catchError(this.handleError<RefreshResponse>("refresh", null)));
+  }
+
+  getTeam(auth_token: string): Observable<number[]> {
+    const url = this.baseUrl + "/trainers/me/team";
+
+    return this.http
+      .get<number[]>(url, {
+        headers: {
+          Authorization: `Bearer ${auth_token}`
+        }
+      })
+      .pipe(
+        tap(() => {
+          this._log(`Fetched my Team`);
+        })
+      )
+      .pipe(catchError(this.handleError<number[]>("getTeam", [])));
+  }
+
+  setTeam(idList: number[], auth_token: string): Observable<null> {
+    const url = this.baseUrl + "/trainers/me/team";
+
+    return this.http
+      .put<null>(url, idList, {
+        headers: {
+          Authorization: `Bearer ${auth_token}`
+        }
+      })
+      .pipe(
+        tap(() => {
+          this._log(`Sent my Team`);
+        })
+      )
+      .pipe(catchError(this.handleError<null>("setTeam", null)));
   }
 
   private _log(message: string) {

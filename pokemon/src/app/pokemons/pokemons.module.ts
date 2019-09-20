@@ -12,7 +12,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatSidenavModule } from "@angular/material/sidenav";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from "@angular/material/divider";
+import { MatToolbarModule } from "@angular/material/toolbar";
 
 import { PokemonListComponent } from "./pokemon-list/pokemon-list.component";
 import { PokemonDetailComponent } from "./pokemon-detail/pokemon-detail.component";
@@ -20,12 +21,20 @@ import { PokemonDetailComponent } from "./pokemon-detail/pokemon-detail.componen
 import { MatCardModule } from "@angular/material/card";
 import { RouterModule } from "@angular/router";
 import { PokedexComponent } from "./pokedex/pokedex.component";
+import { TeamComponent } from "./team/team.component";
+import { LoginComponent } from "./login/login.component";
+import { LogoutComponent } from "./logout/logout.component";
+import { NavbarComponent } from "./navbar/navbar.component";
 
 @NgModule({
   declarations: [
     PokemonListComponent,
     PokemonDetailComponent,
-    PokedexComponent
+    PokedexComponent,
+    TeamComponent,
+    LoginComponent,
+    LogoutComponent,
+    NavbarComponent
   ],
   imports: [
     CommonModule,
@@ -41,6 +50,7 @@ import { PokedexComponent } from "./pokedex/pokedex.component";
     MatInputModule,
     MatFormFieldModule,
     MatDividerModule,
+    MatToolbarModule,
     RouterModule
   ]
 })

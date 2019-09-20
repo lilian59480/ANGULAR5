@@ -1,0 +1,57 @@
+<app-navbar></app-navbar>
+<mat-drawer-container class="team-container">
+  <mat-drawer mode="side" class="team-drawer" opened disableClose>
+    <div class="team-center">
+      Mon Équipe
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <mat-list class="pokemon-list">
+      <mat-list-item *ngIf="teamPokemons.length == 0" class="element">
+        Équipe vide
+      </mat-list-item>
+      <mat-list-item *ngFor="let pokemon of teamPokemons" class="element">
+        <img
+          matListAvatar
+          src="assets/img/sprites/{{ pokemon.id }}.png"
+          alt="{{ pokemon.name }}"
+        />
+        <h3 matLine>{{ pokemon.name }}</h3>
+        <p matLine>
+          <span> {{ pokemon.id }} </span>
+        </p>
+      </mat-list-item>
+    </mat-list>
+  </mat-drawer>
+
+  <mat-drawer-content>
+    <mat-card
+      >Ma nouvelle Équipe
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="sendTeam(pokemonslist.selectedOptions.selected)"
+        [disabled]="pokemonslist.selectedOptions.selected.length != 6"
+      >
+        Creer une nouvelle liste (
+        <span> {{ pokemonslist.selectedOptions.selected.length }} </span>
+        / 6)
+      </button>
+    </mat-card>
+
+    <mat-selection-list #pokemonslist>
+      <mat-list-option [value]="pokemon.id" *ngFor="let pokemon of pokemons">
+        <img
+          matListAvatar
+          src="assets/img/sprites/{{ pokemon.id }}.png"
+          alt="{{ pokemon.name }}"
+        />
+        <h3 matLine>{{ pokemon.name }}</h3>
+        <p matLine>
+          <span> {{ pokemon.id }} </span>
+        </p>
+      </mat-list-option>
+    </mat-selection-list>
+  </mat-drawer-content>
+</mat-drawer-container>

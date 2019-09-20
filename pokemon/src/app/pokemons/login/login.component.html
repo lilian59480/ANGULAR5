@@ -1,0 +1,32 @@
+<app-navbar></app-navbar>
+<form onsubmit="return false;">
+  <div class="login-container">
+    <mat-form-field>
+      <input
+        type="email"
+        #email
+        matInput
+        placeholder="Email"
+        value="francois.poire@ig2i.centralelille.fr"
+      />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input
+        type="password"
+        #password
+        matInput
+        placeholder="Mot de passe"
+        value="toto12345"
+      />
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="login(email.value, password.value)"
+    >
+      Se connecter
+    </button>
+  </div>
+</form>

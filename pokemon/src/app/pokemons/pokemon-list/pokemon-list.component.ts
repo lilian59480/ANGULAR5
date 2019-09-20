@@ -1,8 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
 import { PokemonService } from "../services/pokemon.service";
-import { PaginatedPokemon, Pokemon } from "../models/pokemon.model";
+import { Pokemon } from "../models/pokemon.model";
 import { Subject } from "rxjs";
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
+import { PaginatedPokemon } from '../models/paginated-pokemon.model';
 
 @Component({
   selector: "app-pokemon-list",

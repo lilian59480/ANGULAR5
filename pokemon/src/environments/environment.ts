@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://51.75.122.159:3000"
+  // apiUrl: "http://51.75.122.159:3000"
+  apiUrl: "http://app-ec21e68e-3e55-42d7-b1ae-3eef7507a353.cleverapps.io"
 };
 
 /*
